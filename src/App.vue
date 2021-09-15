@@ -2,24 +2,22 @@
   <div id="todo">
     <div id="todo-header">
       <h1>To-Do</h1>
-      <div id="add-task">Add Task</div>
+      <div id="add-task" @click="addTask"><div>Add Task</div></div>
     </div>
     <div id="todo-body">
       <div id="lists">
-        <div class="list" v-for="task in tasks" :key="task.id">
-          {{ task }}
-        </div>
+        <Tasks :tasks="tasks" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./components/Task";
+import Tasks from "./components/Tasks";
 
 export default {
   name: "App",
-  components: { Task },
+  components: { Tasks },
   data() {
     return {
       tasks: [],
@@ -35,7 +33,7 @@ export default {
       },
       {
         id: 2,
-        task: "writing essay",
+        task: "Math Assignment",
         day: "selasa, 2 agustus at 02:00pm",
         remainder: true,
       },
@@ -47,6 +45,11 @@ export default {
       },
     ];
   },
+  methods: {
+    addTask() {
+      this.tasks.push({ id: 3, task: "tes", day: "tes", remainder: true });
+    },
+  },
 };
 </script>
 
@@ -55,10 +58,11 @@ export default {
   display: flex;
   justify-content: center;
   padding-top: 100px;
+  background-color: #3fb27f;
 }
 #todo {
   width: 50%;
-  background-color: teal;
+  background-color: whitesmoke;
 }
 
 #todo-header {
@@ -68,23 +72,38 @@ export default {
   align-items: center;
   height: 100px;
 }
+#todo-header h1 {
+  font-size: 3rem;
+  color: #32475b;
+}
 #add-task {
+  cursor: pointer;
+}
+#add-task div {
   position: absolute;
   bottom: 0;
   right: 0;
-  margin: 0 20px 20px 0;
-  background-color: white;
+  margin: 0 20px 10px 0;
+  padding: 5px;
+
+  border-radius: 5px;
+  background-color: #32475b;
+  color: white;
+}
+#add-task:hover div {
+  transform: translate(-3px, -3px);
+  box-shadow: 3px 3px 3px black;
 }
 
 #todo-body {
-  background-color: yellowgreen;
-  height: 500px;
+  background-color: whitesmoke;
+  min-height: 500px;
 }
 
 #lists {
-  background-color: wheat;
-  width: 70%;
-  height: 100%;
+  background-color: whitesmoke;
+  width: 80%;
+  min-height: 500px;
   margin: 0 auto;
   padding: 20px 0;
 }
